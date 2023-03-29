@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue + TS</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <div id="app">
+      <template v-if="logado">
+        <p>Você está logado.</p>
+      </template>
+      <template v-else>
+        <p>Você não está logado.</p>
+      </template>
+      <p v-show="logado">teste v-show</p>
+      <button @click="logado = !logado">inverte status</button>
+      <!----------------------------------------------------------->
+      <p>Banana: {{banana}}</p>
+      <p>Carrinho: {{carrinho}}</p>
+      <button v-if="banana" @click="addCarrinho">ADD Carinho</button>
+      <button v-if="carrinho" @click="removeCarrinho">REMOVER Carinho</button>
+      <p v-show="banana === 0">Não temos mais bananas no estoque</p>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          logado: true,
+          banana: 7,
+          carrinho: 0,
+        },
+        methods: {
+          addCarrinho() {
+            this.carrinho++;
+            this.banana--;
+          },
+          removeCarrinho() {
+            this.carrinho--;
+            this.banana++;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

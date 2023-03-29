@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue + TS</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <div id="app">
+      <input v-model="nome" />
+      <p>{{nome}}</p>
+      <!-- ----------------------- -->
+      <input type="checkbox" v-model="receberEmail" id="receberEmail" />
+      <label for="receberEmail">Receber Email</label><br />
+      <input type="checkbox" v-model="termos" id="termos" />
+      <label for="termos">Termos e Condições</label>
+
+      <p>receberEmail: {{receberEmail}}</p>
+      <p>termos: {{termos}}</p>
+      <!-- ----------------------- -->
+      <select v-model="fruta">
+        <option disabled value="">Selecione uma fruta</option>
+        <option value="banana">Banana</option>
+        <option value="morango">Morango</option>
+        <option value="uva">Uva</option>
+      </select>
+
+      <p>fruta: {{fruta}}</p>
+      <!-- ----------------------- -->
+      <input v-model.lazy="mensagem" />
+      <input v-model.number="total" />
+      <input v-model.trim="email" />
+      <p>{{mensagem}}</p>
+      <p>{{total}}</p>
+      <p>{{email}}</p>
+      <!-- ------------------------ -->
+      <div>
+        <span>Background:</span>
+        <input type="color" v-model="estiloBotao.background" />
+        <span>Color:</span>
+        <input type="color" v-model="estiloBotao.color" />
+        <span>Height:</span>
+        <input type="text" v-model="estiloBotao.height" />
+        <span>Width:</span>
+        <input type="text" v-model="estiloBotao.width" />
+
+        <a :style="estiloBotao" href="">Click aqui</a>
+      </div>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          nome: "",
+          receberEmail: true,
+          termos: false,
+          fruta: "",
+          mensagem: "",
+          total: 0,
+          email: "",
+          estiloBotao: {
+            display: "block",
+            background: "",
+            color: "",
+            width: "20px",
+            height: "50px",
+          },
+        },
+        methods: {},
+      });
+    </script>
+
+    <style>
+      span {
+        display: block;
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue + TS</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <div id="app">
+      <p> {{preco}} </p>
+      <button @click="adicionarCupom">Adicionar Cupom</button>
+      <p> {{alerta}} </p>
+    </div>
+    
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          preco: 149,
+          alerta: '',
+        },
+        methods: {
+          adicionarCupom() {
+            this.preco *= .9;
+            this.alertaCupom();
+          },
+          alertaCupom() {
+            this.aleta = 'Cupom Adcional';
+          }
+        },
+      });
+    </script>
+  </body>
+</html>

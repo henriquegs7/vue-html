@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>9-class-style</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <div id="app">
+      <div>
+        <p :class="cor">Texto Azul</p>
+        <p :class="{ativo: estaAtivo}">Texto Ativo</p>
+        <button @click="estaAtivo=!estaAtivo">Inverte valor</button>
+        <!-- ---------------- -->
+        <p :class="[grid, cor]">Texto Ativo</p>
+        <!-- ---------------- -->
+        <p
+          :style="{background: bgColor, color: textColor, fontSize: tamanho + 'px'}"
+        >
+          Texto Ativo
+        </p>
+        <button @click="tamanho++">Aumentar</button>
+        <!-- ---------------- -->
+        <p :style="estiloBotao">Texto Ativo</p>
+        <!-- ---------------- -->
+      </div>
+      <button @click="colunaAtiva=!colunaAtiva">Inverte valor</button>
+      <ul :class="{column: colunaAtiva}" @click="gerarCor">
+        <li :style="{background: novaCor}">Sobre</li>
+        <li :style="{background: novaCor}">Produtos</li>
+        <li :style="{background: novaCor}">Serviços</li>
+        <li :style="{background: novaCor}">Contato</li>
+      </ul>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          grid: "grid-6",
+          cor: "azul",
+          estaAtivo: true,
+          bgColor: "tomato",
+          textColor: "#fff",
+          tamanho: 20,
+          estiloBotao: {
+            background: "tomato",
+            color: "#fff",
+            fontSize: "20px",
+          },
+          colunaAtiva: true,
+          novaCor: "",
+        },
+        methods: {
+          gerarCor() {
+            const color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            this.novaCor = color;
+          },
+        },
+        watch: {},
+      });
+    </script>
+
+    <style>
+      .azul {
+        color: blue;
+      }
+      .ativo {
+        background-color: green;
+        color: white;
+      }
+      .grid-6 {
+        width: 600px;
+      }
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        font-family: monospace;
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+        cursor: pointer;
+      }
+      .column {
+        flex-direction: column;
+      }
+      li {
+        padding: 20px;
+        background: #84e;
+        color: white;
+        border-radius: 4px;
+        margin: 10px;
+        flex: 1;
+        text-align: center;
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue + TS</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <div id="app">
+      <p>latestTime: {{acoes.latestTime}}</p>
+      <p>latestPrice: {{acoes.latestPrice}}</p>
+      <p>companyName: {{acoes.companyName}}</p>
+      <button @click="puxarAcoes()">Puxar Ações</button>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          acoes: {},
+        },
+        methods: {
+          puxarAcoes() {
+            fetch("https://api.origamid.dev/stock/aapl/quote")
+              .then((response) => response.json())
+              .then((json) => (this.acoes = json));
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

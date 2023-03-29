@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue + TS</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <div id="app">
+      <button v-on:click="handleClick">click me</button>
+      <!-- ou -->
+      <button @click="handleClick">click me</button>
+      <!--  -->
+      <button @click="ativo = !ativo">Ativar</button>
+      <p :class="ativo ? 'verde' : 'vermelho'">Texto de teste.</p>
+      <!-- o .once deixa enviar uma vez só e entra em um link sem entrar nele -->
+      <a href="#interno" @click.prevent.once="handleClick">Link Interno</a>
+      <input type="text" @keyup.enter="handleKey" />
+      <p @mousemove="handleMouse">Esse é o mouse x: {{mouse.x}}</p>
+      <!------------------------------------------------------------------->
+
+      <ul>
+        <li>
+          <a
+            @click.prevent="puxarAcoes"
+            href="https://api.origamid.dev/stock/aapl/quote"
+            >Apple</a
+          >
+        </li>
+        <li>
+          <a
+            @click.prevent="puxarAcoes"
+            href="https://api.origamid.dev/stock/googl/quote"
+            >Google</a
+          >
+        </li>
+        <li>
+          <a
+            @click.prevent="puxarAcoes"
+            href="https://api.origamid.dev/stock/amzn/quote"
+            >Amazon</a
+          >
+        </li>
+        <li>
+          <a
+            @click.prevent="puxarAcoes"
+            href="https://api.origamid.dev/stock/ebay/quote"
+            >Ebay</a
+          >
+        </li>
+        <li>
+          <a
+            @click.prevent="puxarAcoes"
+            href="https://api.origamid.dev/stock/pypl/quote"
+            >Paypal</a
+          >
+        </li>
+      </ul>
+      <p>Empresa: {{acao.companyName}}</p>
+      <p>Valor de Mercado: {{acao.latestPrice}}</p>
+      <p>Valor de Ação: {{acao.marketCap}}</p>
+    </div>
+
+    <style>
+      .verde {
+        color: green;
+      }
+
+      .vermelho {
+        color: red;
+      }
+    </style>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          ativo: true,
+          mouse: "",
+          acao: {},
+        },
+        methods: {
+          handleClick(event) {
+            console.log(event);
+          },
+          handleKey(event) {
+            console.log(event.key);
+          },
+          handleMouse(event) {
+            this.mouse = event;
+          },
+          puxarAcoes(event) {
+            fetch(event.target.href)
+              .then((response) => response.json())
+              .then((acao) => (this.acao = acao));
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

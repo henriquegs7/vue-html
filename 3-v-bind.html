@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue + TS</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <div id="app">
+      <a v-bind:href="link">Link google</a>
+      <p v-bind:class="cor">texto color</p>
+      <!-- ou -->
+      <a :href="link">Link google</a>
+      <p :class="comprou ? 'azul' : 'cor'">texto color</p>
+      <!-- ------------------- -->
+      ________________________________________________
+
+      <p>{{google.companyName}}</p>
+      <p :class="google.marketCap > apple.marketCap ? this.color[0] : this.color[1]">{{google.marketCap}}</p>
+    </br>
+      <p>{{apple.companyName}}</p>
+      <p :class="google.marketCap < apple.marketCap ? this.color[0] : this.color[1]">{{apple.marketCap}}</p>
+      <button @click="getApi()">buscar dados</button>
+    </div>
+
+    <style>
+      .verde {
+        color: green;
+      }
+
+      .vermelho {
+        color: red;
+      }
+    </style>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          link: "https://www.google.com/",
+          cor: "vermelho",
+          comprou: true,
+          color: ["vermelho","verde"],
+          google: {},
+          apple:{},
+        },
+        methods: {
+          getApi() {
+            fetch("https://api.origamid.dev/stock/aapl/quote")
+              .then((response) => response.json())
+              .then((apple) => (this.apple = apple));
+
+            fetch("https://api.origamid.dev/stock/googl/quote")
+              .then((response) => response.json())
+              .then((google) => (this.google = google));
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

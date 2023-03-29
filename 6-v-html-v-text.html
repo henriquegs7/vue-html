@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue + TS</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <div id="app">
+      <div v-html="link"></div>
+      <div>{{link}}</div>
+
+      <div v-text="fruta"></div>
+      <div>{{fruta}}</div>
+      <!---------------------------------->
+      <!-- v-once tira a reatividada -->
+      <p v-once>Valor inicial: R$ {{total}}</p>
+      <button @click="gasto += 5">Comprar Banana R$ 5</button>
+      <p>Gasto: R$ {{gasto}}</p>
+      <p>Saldo: R$ {{total - gasto}}</p>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          link: "<a href='https://www.origamid.com'>Origamid</a>",
+          fruta: "Banana",
+          total: 150,
+          gasto: 0,
+        },
+        methods: {},
+      });
+    </script>
+  </body>
+</html>
