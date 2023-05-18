@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    
+    <div id="app">
+      <lista-produtos :produtos="listaItens"></lista-produtos>
+      <lista-cursos></lista-cursos>
+      <blog-post
+        :titulo="blog.titulo"
+        :texto="blog.texto"
+        :likes="blog.likes"
+      ></blog-post>
+    </div>
+
+    <script>
+      const ListaProdutos = {
+        name: 'ListaProdutos',
+        props: ['produtos'],
+        template: `
+          <ul>
+            <li v-for="produto in produtos">{{produto}}</li>
+          </ul>
+        `,
+      };
+
+      const DadosCurso = {
+        name: 'DadosCurso',
+        props: ['curso'],
+        template: `
+          <p>Nome do curso: {{curso}}</p>
+        `,
+      };
+
+      const ListaCursos = {
+        name: 'ListaCursos',
+        data() {
+          return {
+            cursos: ['html', 'css', 'javascript', 'vue'],
+          };
+        },
+        components: {
+          DadosCurso,
+        },
+        template: `
+          <ul>
+            <dados-curso 
+              v-for="curso in cursos"
+              :curso="curso"
+              :key="curso"
+            ></dados-curso>
+          </ul>
+        `,
+      };
+
+      const BlogPost = {
+        name: 'BlogPost',
+        props: ['titulo', 'texto', 'likes'],
+        template: `
+        <article>
+          <h1>{{titulo}}</h1>
+          <p>{{texto}}</p>
+          <span>{{likes}}</span>
+        </article>
+        `,
+      };
+
+      const vm = new Vue({
+        el: '#app',
+        components: {
+          ListaProdutos,
+          ListaCursos, 
+          BlogPost,
+        },
+        data: {
+          listaItens: ['Item 1', 'Item 2'],
+          blog: {
+            titulo: 'Nova Postagem',
+            texto: 'Esse é o texto completo',
+            data: '23/12',
+            likes: 100,
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

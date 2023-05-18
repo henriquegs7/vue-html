@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Events</title>
+    </head>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+        <div id="app">
+            <p>{{mensagem}}</p>
+            <custom-button @meu-evento="receberEvento"></custom-button>
+            <!-- ------------------------------------------------------------------------------------------------------------------ -->
+            <p>{{contador}}</p>
+            <botao-incrementar @update:contador="contador = $event" :contador="contador"></botao-incrementar>
+            <!-- Faz a mesma coisa que o código acima -->
+            <botao-incrementar :contador.sync="contador"></botao-incrementar>
+        </div>
+
+        <script>
+            const CustomButton = {
+                template: `<button @click="emitirEvento">Emitir</button>`,
+                methods: {
+                    emitirEvento() {
+                        this.$emit("meu-evento", "Minha Mensagem");
+                    },
+                },
+            };
+            // ------------------------------------------------------------------------------------------------------------------
+            const BotaoIncrementar = {
+                props: ["contador"],
+                template: `<button @click="incrementar">Emitir</button>`,
+                data() {
+                    return {
+                        contadorComponente: this.contador,
+                    };
+                },
+                methods: {
+                    incrementar() {
+                        this.contadorComponente++;
+                        this.$emit("update:contador", this.contadorComponente);
+                    },
+                },
+            };
+
+            const vm = new Vue({
+                el: "#app",
+                data() {
+                    return {
+                        mensagem: "",
+                        contador: 0,
+                    };
+                },
+                methods: {
+                    receberEvento(mensagem) {
+                        this.mensagem = mensagem;
+                    },
+                },
+                components: {
+                    CustomButton,
+                    BotaoIncrementar,
+                },
+            });
+        </script>
+    </body>
+</html>
